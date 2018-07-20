@@ -7,7 +7,9 @@ import slider03 from '../assets/3.jpg';
 import slider04 from '../assets/4.jpg';
 import slider05 from '../assets/5.jpg';
 import slider06 from '../assets/6.jpg';
-import Slider from './Slider';
+import LeftSlider from './LeftSlider';
+import RightSlider from './RightSlider';
+import CurrentSlider from './CurrentSlider';
 class SliderShow extends Component {
 	state = {
 		sliders: [
@@ -20,55 +22,64 @@ class SliderShow extends Component {
 			{
 				image: slider02,
 				title: 'Lorem Ipsum 02',
-				subtitle: 'by ab illo inventore veritatis',
+				subtitle: 'by unde omnis iste natus error',
 				quote: 'Lorem ipsum dolor sit amet'
 			},
 			{
 				image: slider03,
 				title: 'Lorem Ipsum 03',
-				subtitle: 'by ab illo inventore veritatis',
+				subtitle: 'by sit voluptatem accusantium',
 				quote: 'Lorem ipsum dolor sit amet'
 			},
 			{
 				image: slider04,
 				title: 'Lorem Ipsum 04',
-				subtitle: 'by ab illo inventore veritatis',
+				subtitle: 'by ut perspiciatis unde omnis',
 				quote: 'Lorem ipsum dolor sit amet'
 			},
 			{
 				image: slider05,
 				title: 'Lorem Ipsum 05',
-				subtitle: 'by ab illo inventore veritatis',
+				subtitle: 'by qui ut dolorem ipsum quia',
 				quote: 'Lorem ipsum dolor sit amet'
 			},
 			{
 				image: slider06,
 				title: 'Lorem Ipsum 06',
-				subtitle: 'by ab illo inventore veritatis',
+				subtitle: 'by sed quia consequuntur magni',
 				quote: 'Lorem ipsum dolor sit amet'
 			}
 		],
-		current: 1
+		current: 1,
+		left: 0,
+		right: 2,
+		isAnimating: false,
+		isNext: false,
+		isBack: false
+	};
+	handleClick = (i) => {};
+	back = () => {
+		console.log(1);
+	};
+	next = () => {
+		console.log(2);
 	};
 	render() {
-		const { sliders } = this.state;
 		return (
 			<Wrapper>
-				{sliders.map((slider, i) => (
-					<Slider
-						key={i}
-						content={slider}
-						class_name={
-							i === this.state.current
-								? 'current'
-								: i === this.state.current - 1
-									? 'left'
-									: i === this.state.current + 1
-										? 'right'
-										: ''
-						}
-					/>
-				))}
+        <LeftSliderWrapper onClick={()=> console.log(1)}>
+          <LeftSlider
+            content={this.state.sliders[this.state.current - 1]}
+          />
+        </LeftSliderWrapper>
+				<CurrentSlider
+          content={this.state.sliders[this.state.current]}
+				/>
+        <RightSliderWrapper onClick={()=> console.log(1)}>
+          <RightSlider
+            content={this.state.sliders[this.state.current + 1]}
+          />
+        </RightSliderWrapper>
 			</Wrapper>
 		);
 	}
@@ -89,3 +100,18 @@ const Wrapper = styled.div`
 	width: 100%;
 	${media.pc} ${media.sp};
 `;
+
+const LeftSliderWrapper = styled.div`
+  top: 0;
+  grid-area: preview-left;
+  border-right: 1px solid #dfdfdf;
+  position: relative;
+  pointer-events: auto;
+`
+const RightSliderWrapper = styled.div`
+  top: 0;
+  grid-area: preview-right;
+  border-left: 1px solid #dfdfdf;
+  position: relative;
+  pointer-events: auto;
+`

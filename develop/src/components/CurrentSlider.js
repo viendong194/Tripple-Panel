@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-// import { media } from '../helper/styleHelper';
-class Slider extends Component {
-	render() {
-		return (
-			<SliderItem className={this.props.class_name}>
-				<SliderImage side={this.props.class_name !== 'current' ? true : false}>
+class CurrentSlider extends Component {
+  render() {
+    return (
+      <SliderItem>
+				<SliderImage>
 					<ImageRevealer />
 					<ImageBox background={this.props.content.image} />
 				</SliderImage>
-				<SliderText
-					hide={this.props.class_name === 'current' ? false : true}>
+				<SliderText>
 					<SliderTitle>
 						<TextRevealer />
 						<Title>{this.props.content.title}</Title>
@@ -24,40 +22,24 @@ class Slider extends Component {
 					</SliderQuote>
 				</SliderText>
 			</SliderItem>
-		);
-	}
+    );
+  }
 }
 
-export default Slider;
+export default CurrentSlider;
 
 const SliderItem = styled.div`
 	width: 100%;
 	top: 0;
-	position: absolute;
-	&.current {
-		grid-area: current-slide;
-		position: relative;
-		pointer-events: auto;
-	}
-	&.right {
-		grid-area: preview-right;
-		border-left: 1px solid #dfdfdf;
-    position: relative;
-    pointer-events: auto;
-	}
-	&.left {
-		grid-area: preview-left;
-		border-right: 1px solid #dfdfdf;
-    position: relative;
-    pointer-events: auto;
-	}
+  grid-area: current-slide;
+  position: relative;
+  pointer-events: auto;
 `;
 
 const SliderImage = styled.div`
 	width: 100%;
-	height: ${(props) => (props.side ? '50%' : '100%')};
-	top: ${(props) => (props.side ? '20%' : '0')};
-  cursor: ${(props) => (props.side ? 'pointer' : '')};
+	height: 100%;
+	top: 0;
   overflow:hidden;
   position:absolute;
 `;
